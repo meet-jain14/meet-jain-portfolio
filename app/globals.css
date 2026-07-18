@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens — Terminal Precision (Monochrome)
+   Single source of truth for color, type, and spacing. Component code should
+   reference these tokens (via Tailwind's generated utilities) rather than
+   hardcoding hex values or px sizes.
+   ========================================================================== */
+@theme {
+  /* Color — strictly monochrome + one muted signal accent */
+  --color-bg-primary: #0a0a0b;
+  --color-bg-elevated: #131315;
+  --color-bg-inset: #000000;
+  --color-border-hairline: #232326;
+  --color-text-primary: #ededec;
+  --color-text-secondary: #8a8a8e;
+  --color-text-tertiary: #4e4e52;
+  --color-signal: #b8c4cc;
+
+  /* Type — mono for display/labels, Inter for body, set via next/font in layout.tsx */
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale — deliberately wide range, hero allowed past this on xl viewports */
+  --text-2xs: 0.6875rem; /* 11px — meta/timestamps */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.25rem; /* 20px */
+  --text-xl: 1.75rem; /* 28px */
+  --text-2xl: 2.5rem; /* 40px */
+  --text-3xl: 4rem; /* 64px */
+  --text-4xl: 6rem; /* 96px */
+
+  /* Motion timing — snappy, discrete steps rather than long cinematic eases */
+  --ease-precision: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 400ms;
+}
+
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
+@layer base {
+  * {
+    border-color: var(--color-border-hairline);
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis owns smooth scroll; avoid double-handling */
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-bg-primary);
+  }
+
+  /* Visible, on-theme focus states — never removed, only restyled */
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+  }
+
+  /* Custom cursor hides the native one only on devices that support hover,
+     and only once the cursor component has mounted (JS-gated via a class
+     on <html>, not by default — see useCursorState.ts in Phase 5). */
+  html.has-custom-cursor {
+    @media (hover: hover) and (pointer: fine) {
+      cursor: none;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-primary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-hairline);
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — global kill switch
+   Individual components still gate their own Framer Motion / GSAP variants
+   via useReducedMotion, but this covers any raw CSS transitions/animations.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
