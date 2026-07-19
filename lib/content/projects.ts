@@ -9,7 +9,7 @@ export const PROJECTS: readonly Project[] = [
     problem:
       "Modern AI chat applications often lose conversation context, are difficult to extend, and cram all functionality into a single monolithic assistant. ATLAS explores how a modular AI platform with persistent memory and multiple intelligent components can provide a more scalable foundation for future AI applications.",
     role:
-      "Team project — designed the system architecture, built the FastAPI backend, integrated PostgreSQL and Redis, implemented authentication, connected AI services, developed the frontend, containerized with Docker, and handled deployment end to end.",
+      "Team project — in the final phase, I took ownership of resolving critical backend errors, stabilizing integration between services, and handling the complete production deployment.",
     architecture: [
       "Frontend (React / Next.js)",
       "FastAPI Backend",
@@ -21,7 +21,7 @@ export const PROJECTS: readonly Project[] = [
       "LLM Provider APIs",
     ],
     challenge:
-      "Keeping the backend modular while integrating authentication, AI processing, database storage, and deployment as separate but coordinated layers. Deployment itself was a second major hurdle — getting PostgreSQL, Redis, environment variables, and Docker containers to all communicate correctly in production took significant debugging.",
+      "Picking up the project in its final phase and diagnosing backend errors that were blocking a stable release, then getting PostgreSQL, Redis, environment variables, and Docker containers to all communicate correctly in production — that deployment debugging took focused, independent effort under time pressure to get the team's system genuinely production-ready.",
     stack: [
       "Next.js",
       "FastAPI",
