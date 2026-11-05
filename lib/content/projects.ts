@@ -33,7 +33,7 @@ export const PROJECTS: readonly Project[] = [
       "LangSmith",
     ],
     githubUrl: "https://github.com/meet-jain14/Atlas_final",
-    liveUrl: "https://atlas-visionary-ai.vercel.app/",
+    liveUrl: "https://atlas-multi-agent.vercel.app/",
     futureImprovements: [
       "Complete Retrieval-Augmented Generation (RAG)",
       "Multi-agent orchestration",
